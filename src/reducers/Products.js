@@ -1,25 +1,35 @@
 const initialState = JSON.parse(localStorage.getItem("Product")) || [];
 
 const ProductsReducer = (state = initialState, action) => {
-    debugger
+      debugger
   switch (action.type) {
     case "Add_Product":
       state.push(action.payload);
       AddToLocalStorage(state);
       return state;
+
     case "Delete_Product":
       const delProd = state.filter(Product => {
         return Product.Id != action.payload;
       });
       AddToLocalStorage(delProd);
       return delProd;
+
     case "Edit_Product":
-      const EditProd = state.filter(Product => {
-        return Product.Id === action.payload;
+      const EditProd = state.find(Product => {
+        return Product.Id === Number(action.payload.Id);
       });
       EditProd.Name = action.payload.Name;
-      AddToLocalStorage(EditProd);
-      return EditProd;
+      EditProd.Description = action.payload.Description;
+      EditProd.Price = action.payload.Price;
+      EditProd.Category = action.payload.Category;
+
+      const filterArr = state.filter(Product => {
+        return Product.Id != action.payload.Id;
+      });
+      AddToLocalStorage([...filterArr,EditProd]);
+      return state;
+
     default:
       return state;
   }

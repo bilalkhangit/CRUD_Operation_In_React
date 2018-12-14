@@ -1,18 +1,22 @@
 import React, { Component } from "react";
-import { AddProduct } from "../../actions/Products";
+import { EditProduct } from '../../actions/Products';
 import { connect } from "react-redux";
 
-class Create extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
-    EditProduct;
+    this.FillFields();
   }
 
 
-  EditProduct = () => {
-      
+  FillFields = () => {
+    debugger
     // this.props.dispatch(EditProduct(Id));
-    alert("Product Has Been Updated Successfully" + this.props.match.params.Id);
+    const Prod  = this.props.Product.map((val) => {
+         if(val.Id == this.props.match.params.id){
+          console.log(Prod);
+         }
+    });
   };
 
   CreateProduct = (Id, Name, Description, Price, Category) => {
@@ -26,13 +30,14 @@ class Create extends Component {
     return Product;
   };
 
-  // Save Product
-  SaveProduct = () => {
+  // Update Product
+    UpdateProduct = () => {
+      
     const Name = this.refs.Name.value;
     const Price = this.refs.Price.value;
     const Description = this.refs.Description.value;
     const Category = this.refs.Category.value;
-    const random_number = Math.floor(Math.random() * 10000000000000);
+    const random_number = this.props.match.params.id;
     const Product = this.CreateProduct(
       random_number,
       Name,
@@ -40,7 +45,7 @@ class Create extends Component {
       Price,
       Category
     );
-    this.props.dispatch(AddProduct(Product));
+    this.props.dispatch(EditProduct(Product));
     alert(`Product ${Product.Name} has been created`);
     // this.props.history.push(`./Display/${random_number}`)
   };
@@ -103,7 +108,7 @@ class Create extends Component {
                       type="button"
                       className="btn w-100 btn-Create"
                       onClick={() => {
-                        this.SaveProduct();
+                        this.UpdateProduct();
                       }}
                     >
                       Create New Product
@@ -132,9 +137,8 @@ class Create extends Component {
 
 const mapStateToProps = store => {
   return {
-    Accounts: store.accountsReducer,
-    dashboard: store.dashboardReducer
+    Product: store.ProductsReducer,
   };
 };
 
-export default connect(mapStateToProps)(Create);
+export default connect(mapStateToProps)(Edit);

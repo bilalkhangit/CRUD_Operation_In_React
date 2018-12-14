@@ -10,7 +10,7 @@ class Create extends Component {
 
     CreateProduct = (Id,Name, Description, Price, Category) => {
         const Product = {
-            Id : Id,Name: Name, Description: Description, Price: Price,
+            Id : Id, Name: Name, Description: Description, Price: Price,
             Category: Category
         }
         return Product;
@@ -63,6 +63,7 @@ class Create extends Component {
                                         <input type="text" class="form-control w-100"  ref="Price" />
                                     </div>
                                 </div>
+                                <hr />
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label ml-2">Category </label>
                                     <div class="col-sm-8 col-11 ml-2">
@@ -89,12 +90,10 @@ class Create extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
-    return {
-        Accounts: store.accountsReducer , 
-        dashboard: store.dashboardReducer
-    }
-}
+const mapStateToProps = store => {
+      return{
 
-
-export default connect(mapStateToProps)(Create);
+      }
+  };
+  
+  export default connect(mapStateToProps)(Create);

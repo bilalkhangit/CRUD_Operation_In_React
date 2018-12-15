@@ -1,7 +1,6 @@
 const initialState = JSON.parse(localStorage.getItem("Product")) || [];
 
 const ProductsReducer = (state = initialState, action) => {
-      debugger
   switch (action.type) {
     case "Add_Product":
       state.push(action.payload);
@@ -29,6 +28,8 @@ const ProductsReducer = (state = initialState, action) => {
       });
       AddToLocalStorage([...filterArr,EditProd]);
       return state;
+
+
 
     default:
       return state;

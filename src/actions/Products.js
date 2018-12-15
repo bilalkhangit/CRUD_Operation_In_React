@@ -11,4 +11,5 @@ const EditProduct = (Product) => {
 }
 
 
-export {AddProduct , DelProduct , EditProduct};
+
+export {AddProduct , DelProduct , EditProduct };

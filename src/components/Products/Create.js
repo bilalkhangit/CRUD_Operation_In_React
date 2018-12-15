@@ -18,11 +18,39 @@ class Create extends Component {
 
     // Save Product 
     SaveProduct = () => {
+        debugger
         const Name = this.refs.Name.value;
         const Price = this.refs.Price.value;
         const Description = this.refs.Description.value;
         const Category = this.refs.Category.value;
         const random_number = Math.floor(Math.random() * 10000000000000);
+        let validation_error  = false;
+        if(Name === "" )
+        {
+            alert("Please Enter The Name");
+            validation_error = true;
+        }
+        if(Price === "" )
+        {
+            alert("Please Enter The Price");
+            validation_error = true;
+        }
+        if(Description  === "" )
+        {
+            alert("Please Enter The Description");
+            validation_error = true;
+        }
+        if(Category  === "" )
+        {
+            alert("Please Enter The Category");
+            validation_error = true;
+        } 
+
+        if( validation_error === true){
+            return;
+        } 
+        
+
         const Product = this.CreateProduct(random_number, Name, Description, Price,Category);
             this.props.dispatch(AddProduct(Product));
         alert(`Product ${Product.Name} has been created`);
@@ -40,7 +68,7 @@ class Create extends Component {
                     <div className="col-md-10  mx-auto">
                         <div class="shadow-sm mt-3 bg-white rounded">
                             <h4 className="text-center FormHeader p-4">
-                                Enter account details below
+                                Create New Product
                             </h4>
                             <form>
                                 <div class="form-group row">
@@ -58,14 +86,14 @@ class Create extends Component {
                                 </div>
                                 <hr />
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label ml-2">Price </label>
+                                    <label class="col-sm-3 col-form-label ml-2">Price*</label>
                                     <div class="col-sm-8 col-11 ml-2">
                                         <input type="text" class="form-control w-100"  ref="Price" />
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label ml-2">Category </label>
+                                    <label class="col-sm-3 col-form-label ml-2">Category*</label>
                                     <div class="col-sm-8 col-11 ml-2">
                                         <input type="text" class="form-control w-100"  ref="Category" />
                                     </div>

@@ -11,12 +11,10 @@ class Edit extends Component {
 
   FillFields = () => {
     debugger
-    // this.props.dispatch(EditProduct(Id));
-    const Prod  = this.props.Product.map((val) => {
-         if(val.Id == this.props.match.params.id){
-          console.log(Prod);
-         }
+    const Prod  = this.props.Product.find((val) => {
+         return val.Id == this.props.match.params.id         
     });
+    
   };
 
   CreateProduct = (Id, Name, Description, Price, Category) => {
@@ -45,6 +43,35 @@ class Edit extends Component {
       Price,
       Category
     );
+
+    let validation_error = false;
+
+    if(Name === "" )
+    {
+        alert("Please Enter The Name");
+        validation_error = true;
+    }
+    if(Price === "" )
+    {
+        alert("Please Enter The Price");
+        validation_error = true;
+    }
+    if(Description  === "" )
+    {
+        alert("Please Enter The Description");
+        validation_error = true;
+    }
+    if(Category  === "" )
+    {
+        alert("Please Enter The Category");
+        validation_error = true;
+    } 
+
+    if( validation_error === true){
+        return;
+    } 
+    
+
     this.props.dispatch(EditProduct(Product));
     alert(`Product ${Product.Name} has been created`);
     // this.props.history.push(`./Display/${random_number}`)
@@ -57,7 +84,7 @@ class Edit extends Component {
           <div className="col-md-10  mx-auto">
             <div class="shadow-sm mt-3 bg-white rounded">
               <h4 className="text-center FormHeader p-4">
-                Enter account details below
+                Update Product Data
               </h4>
               <form>
                 <div class="form-group row">
@@ -86,13 +113,14 @@ class Edit extends Component {
                 </div>
                 <hr />
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label ml-2">Price </label>
+                  <label class="col-sm-3 col-form-label ml-2">Price*</label>
                   <div class="col-sm-8 col-11 ml-2">
                     <input type="text" class="form-control w-100" ref="Price" />
                   </div>
                 </div>
+                <hr/>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label ml-2">Category </label>
+                  <label class="col-sm-3 col-form-label ml-2">Category*</label>
                   <div class="col-sm-8 col-11 ml-2">
                     <input
                       type="text"
@@ -111,7 +139,7 @@ class Edit extends Component {
                         this.UpdateProduct();
                       }}
                     >
-                      Create New Product
+                      Update Product
                     </button>
                   </div>
                   <div class="col-sm-4 col-11 ml-2 mb-4">
